@@ -298,6 +298,13 @@ class AddNoteBottomSheetDialogFragment : BottomSheetDialogFragment() {
         Log.d("AddNoteBottomSheet", "Category: $category")
         Log.d("AddNoteBottomSheet", "Reminder: $remind")
 
+        val color = when (category) {
+            "brainstorm" -> "#F5F3FE"
+            "design" -> "#EDFAF6"
+            "workout" -> "#EDF7FF"
+            else -> "#735BF2"
+        }
+
         val note = Note(
             id = noteId ?: 0,
             eventName = name,
@@ -306,7 +313,8 @@ class AddNoteBottomSheetDialogFragment : BottomSheetDialogFragment() {
             startTime = selectedStartTime,
             endTime = selectedEndTime,
             category = category,
-            reminderEnabled = isReminderEnabled
+            reminderEnabled = isReminderEnabled,
+            color = color
         )
 
         if (noteId == null || noteId == 0L) viewModel.insertNote(note)

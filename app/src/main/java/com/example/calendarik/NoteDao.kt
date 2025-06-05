@@ -6,10 +6,10 @@ import java.time.LocalDate
 
 @Dao
 interface NoteDao {
-    @Query("SELECT * FROM notes WHERE date = :date ORDER BY startTime")
+    @Query("SELECT * FROM new_notes WHERE date = :date ORDER BY startTime")
     fun getNotesForDate(date: LocalDate): Flow<List<Note>>
 
-    @Query("SELECT * FROM notes WHERE date BETWEEN :startDate AND :endDate ORDER BY startTime")
+    @Query("SELECT * FROM new_notes WHERE date BETWEEN :startDate AND :endDate ORDER BY startTime")
     fun getNotesForMonth(startDate: LocalDate, endDate: LocalDate): Flow<List<Note>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
@@ -21,9 +21,9 @@ interface NoteDao {
     @Delete
     suspend fun delete(note: Note): Int   // Возвращает Int
 
-    @Query("SELECT * FROM notes ORDER BY date ASC")
+    @Query("SELECT * FROM new_notes ORDER BY date ASC")
     fun getAlphabetizedNotes(): Flow<List<Note>>
 
-    @Query("SELECT * FROM notes WHERE id = :id")
+    @Query("SELECT * FROM new_notes WHERE id = :id")
     fun getNoteById(id: Long): Flow<Note?>
 }
